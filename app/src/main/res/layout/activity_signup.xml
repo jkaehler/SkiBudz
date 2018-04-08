@@ -116,7 +116,15 @@
                       android:hint="Password"/>
         </android.support.design.widget.TextInputLayout>
 
+        <DatePicker
+            android:id="@+id/datePicker3"
+            android:datePickerMode="spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <!-- Signup Button -->
+
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_signup"
             android:layout_width="fill_parent"
