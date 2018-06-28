@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
@@ -26,10 +28,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ;
 
-        _loginButton = (Button)findViewById(R.id.btn_login);
-        _emailText = (EditText)findViewById(R.id.input_email);
-        _passwordText = (EditText)findViewById(R.id.input_password);
-        _signupLink = (TextView)findViewById(R.id.link_signup);
+        _loginButton = findViewById(R.id.btn_login);
+        _emailText = findViewById(R.id.input_email);
+        _passwordText = findViewById(R.id.input_password);
+        _signupLink = findViewById(R.id.link_signup);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -72,8 +74,9 @@ public class LoginActivity extends AppCompatActivity {
         String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
-        ServerRequests serverRequests = new ServerRequests(this);
 
+        User user = new User(null,null, email, password, null);
+        LogInUser(user);
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -84,6 +87,18 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+    }
+
+    private void LogInUser(User user) {
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println(response);
+            }
+        };
+
+        LoginRequest loginRequest = new LoginRequest(user, responseListener);
     }
 
 
